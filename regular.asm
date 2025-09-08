@@ -59,14 +59,14 @@ _start:
 
     .exit_loop:
 
-    ; mov r8, primes
-    ; .write_loop:
-    ;     xor rax, rax
-    ;     mov eax, dword [r8]
-    ;     call write_number
-    ;     add r8, 4
-    ;     cmp r8, primes_end
-    ;     jne .write_loop
+    mov r8, primes
+    .write_loop:
+        xor rax, rax
+        mov eax, dword [r8]
+        call write_number
+        add r8, 4
+        cmp r8, primes_end
+        jne .write_loop
 
     jmp exit
 
