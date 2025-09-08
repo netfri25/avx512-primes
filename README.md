@@ -6,7 +6,7 @@ small implementation of 1M prime numbers generation using some of the AVX512 ins
 this is just for learning, and you should probably not use it ever for anything other than messing around / learning AVX512.
 
 I've implemented most of it using the help of some really smart people in tsoding's discord server.
-###### thanks a lot!: ikxi, mrgerman, x4204, and especially fiuzeri
+###### thanks a lot!: @ikxi, @mrgerman, @x4204, and especially @fiuzeri
 
 ## performance
 tested on 1M primes with printing turned off on a non-quiet system.
