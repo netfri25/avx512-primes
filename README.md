@@ -12,9 +12,9 @@ I've implemented most of it using the help of some really smart people in tsodin
 tested on 1M primes with printing turned off on a non-quiet system.
 ```
 regular: ~1.291s
-avx512:  ~0.967s
+avx512:  ~0.691s
 ```
-about `~33%` speedup
+about `~86.831%` speedup
 
 ## Dependencies
  - `x86-64` architecture

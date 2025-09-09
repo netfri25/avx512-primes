@@ -8,19 +8,23 @@ include '../common.asm'
 segment readable executable
 
 _start:
+    ; initialize primes up until 11, since it needs the smallest prime number such that:
+    ; p + 2*WHEEL < p^2
     mov dword [primes + 0*4], 2
     mov dword [primes + 1*4], 3
     mov dword [primes + 2*4], 5
     mov dword [primes + 3*4], 7
+    mov dword [primes + 4*4], 11
 
-    ; index 0 should never be read, and is left undefined
+    ; commented movs should never be read anyways, and are left undefined
     ; mov dword [divisors + 0*4], ...
-    mov dword [divisors + 1*4], 9
-    mov dword [divisors + 2*4], 15
+    ; mov dword [divisors + 1*4], ...
+    ; mov dword [divisors + 2*4], ...
     mov dword [divisors + 3*4], 21
+    mov dword [divisors + 4*4], 33
 
     ; index to the end of primes (where primes are appended)
-    mov r8, 4
+    mov r8, 5
 
     ; numbers that are currently being tested
     vmovdqu32 zmm6, [starting_values]
@@ -32,9 +36,9 @@ _start:
     .loop:
         vmovdqa32 zmm0, zmm6
         ; index to the prime to check as divisor.
-        ; since 2 is the first prime and we know for sure that the number won't
-        ; be divisible by 2, then we skip it
-        mov rsi, 1
+        ; since a 30 wheel is being used (2*3*5), then we can skip checking for
+        ; divisibility by either 2, 3, or 5.
+        mov rsi, 3
 
         ; initialize all bits of k1 to 1
         ; k1 marks all primes numbers when the check_divisors loop finishes
@@ -49,17 +53,12 @@ _start:
             mov ecx, dword [divisors + rsi*4]
             vpbroadcastd zmm2, ecx
 
-            ; ==  3 -> max 11 iterations
-            ; ==  5 -> max  7 iterations
-            ; ==  7 -> max  5 iterations
-            ; == 11 -> max  3 iterations
-            ; == 13 -> max  3 iterations
-            ; == 17 -> max  2 iterations
-            ; == 19 -> max  2 iterations
-            ; == 23 -> max  2 iterations
-            ; == 29 -> max  2 iterations
-            ; == 31 -> max  2 iterations
-            ; >= 37 -> max  1 iteration
+            ; WHEEL = 2 * 3 * 5
+            ; STEP = 2 * WHEEL
+            ; for p in primes[3:]:
+            ;   max iterations = ceil(STEP / prime)
+            ; primes         = [ 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, ...      ]
+            ; max iterations = [ 9,  6,  5,  4,  4,  3,  3,  2,  2,  2,  2,  2,  2,  2,  1, repeat 1 ]
             .divisor_loop:
                 ; keep values that are not equal to that divisor
                 vpcmpeqd k0, zmm0, zmm2
@@ -118,22 +117,22 @@ _start:
 
     .exit_loop:
 
-    mov r8, primes
-    .write_loop:
-        xor rax, rax
-        mov eax, dword [r8]
-        call write_number
-        add r8, 4
-        cmp r8, primes_end
-        jne .write_loop
+    ; mov r8, primes
+    ; .write_loop:
+    ;     xor rax, rax
+    ;     mov eax, dword [r8]
+    ;     call write_number
+    ;     add r8, 4
+    ;     cmp r8, primes_end
+    ;     jne .write_loop
 
     jmp exit
 
 
 segment readable
-; TODO: can be optimized by starting only with primes
-starting_values: dd  9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39
-increments:      dd 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
+; optimize using a 30-wheel: https://en.wikipedia.org/wiki/Wheel_factorization
+starting_values: dd 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 49, 53, 59, 61, 67, 71
+increments:      dd 16 dup 60
 
 segment readable writeable
 PRIMES_CAP equ 1000000
