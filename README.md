@@ -16,8 +16,11 @@ I've implemented most of it using the help of some really smart people in tsodin
  - there's no form of modulo nor integer division in avx512
  - divisibility check can be done using gcd
  - instrucions
+    * `kand`
     * `kandn`
     * `kmov`
+    * `knot`
+    * `kor`
     * `kortest`
     * `vmovdqa32` (and the difference between the 64 version)
     * `vmovdqu32` (and the difference between the 64 version)
