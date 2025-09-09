@@ -3,7 +3,7 @@
 format ELF64 executable
 entry _start
 
-include 'common.asm'
+include '../common.asm'
 
 segment readable executable
 

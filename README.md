@@ -11,7 +11,7 @@ I've implemented most of it using the help of some really smart people in tsodin
 ## performance
 tested on 1M primes with printing turned off on a non-quiet system.
 ```
-non-avx: ~1.291s
+regular: ~1.291s
 avx512:  ~0.967s
 ```
 about `~33%` speedup
@@ -20,6 +20,7 @@ about `~33%` speedup
  - `x86-64` architecture
  - linux kernel
  - fasm
+ - make
  - cpu with [avx512](https://en.wikipedia.org/wiki/AVX-512#CPUs_with_AVX-512)
 
 ###### no need for libc :)
@@ -29,15 +30,15 @@ about `~33%` speedup
 
 #### Build
 ```shell
-fasm main.asm
+make
 ```
 
 #### Clean
 ```shell
-rm main
+make clean
 ```
 
 #### Usage
 ```shell
-./main
+./build/trial-division/avx
 ```
