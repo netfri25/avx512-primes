@@ -1,13 +1,17 @@
 BUILD_DIR = build
 TRIAL_BUILD_DIR = $(BUILD_DIR)/trial-divison
 
-all: $(TRIAL_BUILD_DIR)/avx $(TRIAL_BUILD_DIR)/regular
+all: $(TRIAL_BUILD_DIR)/avx $(TRIAL_BUILD_DIR)/regular $(TRIAL_BUILD_DIR)/avx-gcd
 
 $(TRIAL_BUILD_DIR)/avx: trial-division/main.asm Makefile
 	@mkdir -p $(dir $@)
 	fasm $< $@
 
 $(TRIAL_BUILD_DIR)/regular: trial-division/regular.asm Makefile
+	@mkdir -p $(dir $@)
+	fasm $< $@
+
+$(TRIAL_BUILD_DIR)/avx-gcd: trial-division/with-gcd.asm Makefile
 	@mkdir -p $(dir $@)
 	fasm $< $@
 
