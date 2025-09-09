@@ -29,6 +29,7 @@ I've implemented most of it using the help of some really smart people in tsodin
     * `vpcmpeq`
     * `vpcmpgt`
     * `vpcompress`
+    * `vplzcnt`
     * `vpmax`
     * `vpmin`
     * `vpmuldq`
