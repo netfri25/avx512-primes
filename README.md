@@ -8,6 +8,33 @@ this is just for learning, and you should probably not use it ever for anything 
 I've implemented most of it using the help of some really smart people in tsoding's discord server.
 ###### thanks a lot!: @ikxi, @mrgerman, @x4204, and especially @fiuzeri
 
+## What I've learned
+ - how to implement trailing zero count (thanks to @fiuzeri)
+ - fasm macro
+ - wheel method for prime generation
+ - proper masking of packed vector instructions
+ - instrucions
+    * `kandn`
+    * `kmov`
+    * `kortest`
+    * `vmovdqa32` (and the difference between the 64 version)
+    * `vmovdqu32` (and the difference between the 64 version)
+    * `vpadd`
+    * `vpandn`
+    * `vpcmpeq`
+    * `vpcmpgt`
+    * `vpcompress`
+    * `vpmax`
+    * `vpmin`
+    * `vpmuldq`
+    * `vpmulhu`
+    * `vpmull`
+    * `vpmuludq`
+    * `vpsrl`
+    * `vpsrlv`
+    * `vpternlog`
+    * `vptestm`
+
 ## performance
 tested on 1M primes with printing turned off on a non-quiet system.
 ```
