@@ -13,6 +13,7 @@ I've implemented most of it using the help of some really smart people in tsodin
  - fasm macro
  - wheel method for prime generation
  - proper masking of packed vector instructions
+ - there's no form of modulo nor integer division in avx512
  - instrucions
     * `kandn`
     * `kmov`
